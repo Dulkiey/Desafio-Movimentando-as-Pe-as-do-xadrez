@@ -1,0 +1,93 @@
+#include <stdio.h>
+
+/*
+ Movimentos Complexos - versão corrigida e simples
+ - Torre, Bispo e Rainha: recursão
+ - Bispo: recursão + loops aninhados (externo = vertical, interno = horizontal)
+ - Cavalo: loops aninhados (duas casas para cima + uma para a direita)
+ Saída: apenas as palavras de direção, uma por linha.
+*/
+
+/* Torre recursiva: imprime "Direita" n vezes */
+void torre_rec(int n) {
+    if (n <= 0) return;
+    printf("Direita\n");
+    torre_rec(n - 1);
+}
+
+/* Bispo recursivo + loops aninhados:
+   Para cada passo diagonal (passos), usamos um loop externo (vertical)
+   e um loop interno (horizontal). Cada passo produz "Cima" e "Direita".
+*/
+void bispo_rec(int passos) {
+    if (passos <= 0) return;
+
+    /* loop externo (vertical) - 1 iteração por passo neste design */
+    for (int v = 0; v < 1; v++) {
+        /* loop interno (horizontal) - 1 iteração por passo */
+        int h = 0;
+        while (h < 1) {
+            printf("Cima\n");
+            printf("Direita\n");
+            h++;
+        }
+    }
+
+    /* próximo passo diagonal */
+    bispo_rec(passos - 1);
+}
+
+/* Rainha recursiva: imprime "Esquerda" n vezes */
+void rainha_rec(int n) {
+    if (n <= 0) return;
+    printf("Esquerda\n");
+    rainha_rec(n - 1);
+}
+
+/* Cavalo com loops aninhados:
+   Movimento em "L": duas casas para cima e uma para a direita.
+   For externo controla o movimento vertical; while interno controla a(s) casa(s) horizontal(is).
+   Uso de break para encerrar o while após alcançar a(s) casa(s) desejada(s).
+*/
+void cavalo_complexo(int cima, int direita) {
+    int contadorCasa = 0;
+
+    for (int up = 1; up <= cima; up++) {
+        contadorCasa++;
+        printf("Cima\n");
+
+        /* quando concluir a parte vertical, faz a parte horizontal */
+        if (up == cima) {
+            int r = 1;
+            while (r <= direita) {
+                contadorCasa++;
+                printf("Direita\n");
+                /* terminar após a(s) casa(s) desejada(s) */
+                if (r >= direita) break;
+                r++;
+            }
+        }
+    }
+}
+
+int main(void) {
+    const int passosTorre = 4;
+    const int passosBispo = 3;
+    const int passosRainha = 4;
+    const int cavaloCima = 2;    /* duas casas para cima */
+    const int cavaloDireita = 1; /* uma casa para a direita */
+
+    printf("=== Torre (recursivo) ===\n");
+    torre_rec(passosTorre);
+
+    printf("\n=== Bispo (recursivo + loops aninhados) ===\n");
+    bispo_rec(passosBispo);
+
+    printf("\n=== Rainha (recursivo) ===\n");
+    rainha_rec(passosRainha);
+
+    printf("\n=== Cavalo (loops aninhados) ===\n\n");
+    cavalo_complexo(cavaloCima, cavaloDireita);
+
+    return 0;
+}
