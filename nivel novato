@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+int main(void) {
+    int opcao = 0;
+    int movimentoTorre = 5;
+    int movimentoBispo = 5;
+    int movimentoRainha = 8;
+    int i, contador, passo;
+
+    printf("=== SIMULADOR DE MOVIMENTO DE PEÇAS DE XADREZ ===\n");
+    printf("Escolha uma peça para simular o movimento:\n");
+    printf("1 - Torre\n");
+    printf("2 - Bispo\n");
+    printf("3 - Rainha\n");
+    printf("Digite sua opção: ");
+
+    if (scanf("%d", &opcao) != 1) {
+        printf("Entrada inválida.\n");
+        return 1;
+    }
+
+    printf("\n");
+
+    switch (opcao) {
+        case 1:
+            printf("=== Movimento da Torre ===\n");
+            printf("A Torre se move em linha reta. Vamos mover %d casas para a direita.\n\n", movimentoTorre);
+            for (i = 1; i <= movimentoTorre; i++) {
+                printf("Casa %d: Direita\n", i);
+            }
+            break;
+
+        case 2:
+            printf("=== Movimento do Bispo ===\n");
+            printf("O Bispo se move na diagonal. Vamos mover %d casas para cima e à direita.\n\n", movimentoBispo);
+            contador = 1;
+            while (contador <= movimentoBispo) {
+                printf("Casa %d: Cima, Direita\n", contador);
+                contador++;
+            }
+            break;
+
+        case 3:
+            printf("=== Movimento da Rainha ===\n");
+            printf("A Rainha se move em todas as direções. Vamos mover %d casas para a esquerda.\n\n", movimentoRainha);
+            passo = 1;
+            do {
+                printf("Casa %d: Esquerda\n", passo);
+                passo++;
+            } while (passo <= movimentoRainha);
+            break;
+
+        default:
+            printf("Opção inválida! Escolha um número entre 1 e 3.\n");
+            break;
+    }
+
+    printf("\n=== Fim da simulação ===\n");
+    return 0;
+}
